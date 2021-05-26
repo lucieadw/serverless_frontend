@@ -1,7 +1,13 @@
 const baseUrl = 'https://89ji866ymg.execute-api.eu-central-1.amazonaws.com/dev'
 
+export enum Category {
+  Plants = 'plant',
+  Flowers = 'flower',
+  Edibles = 'edible'
+}
+
 export interface Product {
-  category: string
+  category: Category
   productId: string
   name: string
   description: string
@@ -10,16 +16,8 @@ export interface Product {
   picture: string
 }
 export default {
-  async getPlants (): Promise<Product[]> {
-    const reponse = await fetch(baseUrl + '/products/plant')
-    return reponse.json()
-  },
-  async getFlowers (): Promise<Product[]> {
-    const reponse = await fetch(baseUrl + '/products/flower')
-    return reponse.json()
-  },
-  async getEdibles (): Promise<Product[]> {
-    const reponse = await fetch(baseUrl + '/products/edible')
+  async getCategory (c: Category): Promise<Product[]> {
+    const reponse = await fetch(baseUrl + '/products/' + c)
     return reponse.json()
   }
 }

@@ -15,20 +15,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About')
   },
   {
-    path: '/plants',
-    name: 'Plants',
-    component: () => import(/* webpackChunkName: "plants" */ '../views/Plants')
-  },
-  {
-    path: '/flowers',
-    name: 'Flowers',
-    component: () => import(/* webpackChunkName: "flowers" */ '../views/Flowers')
-  },
-  {
-    path: '/edibles',
-    name: 'Edibles',
-    component: () => import(/* webpackChunkName: "edibles" */ '../views/Edibles')
+    path: '/shop',
+    name: 'Shop',
+    component: () => import(/* webpackChunkName: "shop" */ '../views/Shop')
   }
+  //,
+  // {
+  //   path: '/flowers',
+  //   name: 'Flowers',
+  //   component: () => import(/* webpackChunkName: "flowers" */ '../views/Flowers')
+  // },
+  // {
+  //   path: '/edibles',
+  //   name: 'Edibles',
+  //   component: () => import(/* webpackChunkName: "edibles" */ '../views/Edibles')
+  // }
 ]
 
 const router = createRouter({

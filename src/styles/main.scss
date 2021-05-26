@@ -6,7 +6,7 @@ h3 {
   margin: 40px 0 0;
 }
 a {
-  color: #42b983;
+  color: #ff7261;
 }
 
 #app {
@@ -25,6 +25,7 @@ $nav-height: 82px;
 #nav {
   top:0;
   position: fixed;
+  z-index: 9999;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -39,7 +40,7 @@ $nav-height: 82px;
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color:  #ff7261;
     }
   }
 }
@@ -50,28 +51,22 @@ $nav-height: 82px;
 
 .about {
   margin-top: $nav-height;
+  min-height: 900px;
   h1 {}
 }
 
-.plants {
-  display: flex;
-  flex-wrap: wrap;
+.content {
   margin-top: $nav-height;
+  padding-top: 20px;
 }
 
-.flowers {
-  margin-top: $nav-height;
-}
-
-.edibles {
-  margin-top: $nav-height;
-}
-
-.product-card {
-  border: 1px solid grey;
-  border-radius: 5px;
-  min-width: 150px;
-  min-height: 150px;
+.footer-container {
+  display: grid;
+  background-color:white;
+  text-align: center;
+  box-shadow: inset 0 0.25em 0.5em rgba(0,0,0,0.25);
+  padding: 1em;
+  gap: 1em 0em;
 }
 
 .grid-container {
@@ -88,9 +83,177 @@ $nav-height: 82px;
     background-position: center;
     background-size: cover;
 
+
     &-header {
+      color: white;
       min-height: 500px;
       grid-area: header;
     }
   }
 }
+
+body{
+  background:#f1f2f7;
+  }
+  
+  /*panel*/
+  .panel {
+      border: none;
+      box-shadow: none;
+  }
+  
+  .panel-heading {
+      border-color:#eff2f7 ;
+      font-size: 16px;
+      font-weight: 300;
+  }
+  
+  .panel-title {
+      color: #2A3542;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 0;
+      margin-top: 0;
+      font-family: 'Open Sans', sans-serif;
+  }
+
+  .category-nav {
+    .panel{
+      // position: fixed;
+      // width: calc(25% - 60px);
+    }
+  }
+  
+  /*product list*/
+  
+  .prod-cat {
+    li a {
+      border-bottom: 1px dashed #d9d9d9;
+      color: #3b3b3b;
+    }
+    li:last-child a {
+      border-bottom: none;
+    }
+  }
+  .prod-cat li button {
+    color: #3b3b3b;
+  }
+
+  .prod-cat li button:hover,.prod-cat li button:focus, .prod-cat li button.active{
+      background: none;
+      color: #ff7261;
+  }
+  
+  .pro-lab{
+      margin-right: 20px;
+      font-weight: normal;
+  }
+  
+  .pro-sort {
+      padding-right: 20px;
+      float: left;
+  }
+  
+  .pro-page-list {
+      margin: 5px 0 0 0;
+  }
+  
+  .product-list img{
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      -webkit-border-radius: 4px 4px 0 0;
+  }
+  
+  .product-list .pro-img-box {
+      position: relative;
+  }
+  .adtocart {
+      background: #fc5959;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      color: #fff;
+      display: inline-block;
+      text-align: center;
+      border: 3px solid #fff;
+      left: calc(50% - 25px);
+      bottom: -25px;
+      position: absolute;
+  }
+  
+  .adtocart i{
+      color: #fff;
+      font-size: 25px;
+      line-height: 42px;
+  }
+  
+  .pro-title {
+      color: #5A5A5A;
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 16px;
+  }
+  
+  .product-list .price {
+      color:#fc5959 ;
+      font-size: 15px;
+  }
+  
+  .pro-img-details {
+      margin-left: -15px;
+  }
+  
+  .pro-img-details img {
+      width: 100%;
+  }
+  
+  .pro-d-title {
+      font-size: 16px;
+      margin-top: 0;
+  }
+  
+  .product_meta {
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+      margin: 15px 0;
+  }
+  
+  .product_meta span {
+      display: block;
+      margin-bottom: 10px;
+  }
+  .product_meta a, .pro-price{
+      color:#fc5959 ;
+  }
+  
+  .pro-price, .amount-old {
+      font-size: 18px;
+      padding: 0 10px;
+  }
+  
+  .amount-old {
+      text-decoration: line-through;
+  }
+  
+  .quantity {
+      width: 120px;
+  }
+  
+  .pro-img-list {
+      margin: 10px 0 0 -15px;
+      width: 100%;
+      display: inline-block;
+  }
+  
+  .pro-img-list a {
+      float: left;
+      margin-right: 10px;
+      margin-bottom: 10px;
+  }
+  
+  .pro-d-head {
+      font-size: 18px;
+      font-weight: 300;
+  }
