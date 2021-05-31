@@ -2,11 +2,13 @@ import { Product } from '@/api'
 import { defineComponent, computed, PropType } from 'vue'
 
 export default defineComponent({
+  emits: ['click'], // sorgt dafür dass der Shop an dem ProductCard tag ein onClick hat und man dann dort eine Fuktion aufrufen kann
   props: {
+    onClick: Function,
     product: { type: Object as PropType<Product>, required: true }
   },
-  setup (props) {
-    const image = computed(() => props.product.picture || require('@/assets/monstera.jpeg'))
+  setup (props, { emit }) {
+    const image = computed(() => '/img/' + (props.product.picture || 'monstera.jpeg'))
     return () => <div class="col-md-4">
       <section class="panel">
         <div class="pro-img-box">
@@ -17,9 +19,9 @@ export default defineComponent({
         </div>
         <div class="panel-body text-center">
           <h4>
-            <a href="#" class="pro-title">
+            <button onClick={() => emit('click', props.product)} class="btn btn-link pro-title">
               {props.product.name}
-            </a>
+            </button>
           </h4>
           <p class="price">{props.product.price}€</p>
         </div>

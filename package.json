@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "aws s3 sync ./dist s3://your-bucket-name"
+    "deploy": "aws s3 sync ./dist s3://lucies-webshop-frontend"
   },
   "dependencies": {
     "core-js": "^3.6.5",
