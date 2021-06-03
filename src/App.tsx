@@ -1,16 +1,19 @@
 import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  render () {
-    return <>
+  setup () {
+    const router = useRouter()
+    return () => <>
       <nav id="nav">
         <router-link to="/">Home</router-link>
         <router-link to="/shop">Shop</router-link>
         {/* <router-link to="/flowers">Blumen</router-link>
         <router-link to="/edibles">Essbares</router-link> */}
         <router-link to="/about">Geschichte</router-link>
+        <button onClick={() => router.push('/basket')} class="basket"><i class="fa fa-shopping-cart"><p class="basket-text">Warenkorb</p></i></button>
       </nav>
-      <router-view class="content"/>
+      <router-view class="content" />
       <div class="footer-container">
         <footer>Hier sollten ein paar Icon-Links sein z.B. zu GitHub oder Vue</footer>
         <p class="copyright">Contact: lucie.ausderwieschen@haw-hamburg.de</p>

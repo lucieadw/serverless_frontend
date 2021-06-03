@@ -18,13 +18,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/shop',
     name: 'Shop',
     component: () => import(/* webpackChunkName: "shop" */ '../views/Shop')
+  },
+  {
+    path: '/basket',
+    name: 'Basket',
+    component: () => import(/* webpackChunkName: "basket" */ '../views/Basket')
   }
-  //,
-  // {
-  //   path: '/flowers',
-  //   name: 'Flowers',
-  //   component: () => import(/* webpackChunkName: "flowers" */ '../views/Flowers')
-  // },
   // {
   //   path: '/edibles',
   //   name: 'Edibles',

@@ -9,6 +9,7 @@
     "deploy": "aws s3 sync ./dist s3://lucies-webshop-frontend"
   },
   "dependencies": {
+    "aws-amplify": "^4.0.3",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
