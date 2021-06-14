@@ -350,6 +350,24 @@ body{
     }
   }
 
+  .popup-signin{
+    background: white;
+    position: relative;
+    width: 300px;
+    align-items: center; //richtet kindelemente vertikal aus (also popup_inner)
+    justify-content: center; //" horizontal
+    .popup-signin-info{
+      padding-bottom: 50px;
+    }
+    .btn-close{
+      position: absolute;
+      font-size: 130%;
+      top:0;
+      right:0;
+      color: #ff7261;
+    }
+  }
+
   .btn-group {
     select {
       height: 34px;
@@ -366,7 +384,7 @@ body{
     font-size: 25px;
     line-height: 42px;
 
-    border-color: #fc5959;
+   
     display: inline-block;
     text-align: center;
     position: absolute;
@@ -386,3 +404,23 @@ body{
     min-width: 200px;
     background-color: #fff;
   } 
+
+  .profile-button{
+    position: absolute;
+    right: 150px;
+    top:17px;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    color: #fc5959;
+    background-color: #fff;
+  }
+
+  .profile{
+    align-items: center; //richtet kindelemente vertikal aus (also popup_inner)
+    justify-content: center; //" horizontal
+    display: flex;
+    min-height: 400px;
+    min-width: 200px;
+    background-color: #fff;
+  }

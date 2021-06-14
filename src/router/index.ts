@@ -23,12 +23,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/basket',
     name: 'Basket',
     component: () => import(/* webpackChunkName: "basket" */ '../views/Basket')
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import(/* webpackChunkName: "profile" */ '../views/Profile')
   }
-  // {
-  //   path: '/edibles',
-  //   name: 'Edibles',
-  //   component: () => import(/* webpackChunkName: "edibles" */ '../views/Edibles')
-  // }
 ]
 
 const router = createRouter({

@@ -15,6 +15,9 @@ Auth.configure({
 
 const jwtToken = ref('')
 
+// wenn keine session da (also nicht eingeloggt dann wird das promise nie aufgeöst (.then))
+Auth.currentSession().then(sess => (jwtToken.value = sess.getAccessToken().getJwtToken()))
+
 export enum Category {
   Plants = 'plant',
   Flowers = 'flower',
@@ -51,10 +54,11 @@ export default {
     const reponse = await fetch(baseUrl + '/products/' + c)
     return reponse.json()
   },
-  async getBasekt (): Promise<Basket> {
+  async getBasket (): Promise<Basket> {
     const response = await fetch(baseUrl + '/basket', {
       headers: { Authorization: jwtToken.value }
     })
     return response.json()
-  }
+  },
+  jwtToken
 }
