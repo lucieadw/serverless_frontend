@@ -397,13 +397,34 @@ body{
   }
 
   .basket-list {
-    align-items: center; //richtet kindelemente vertikal aus (also popup_inner)
+    align-items: center; //richtet kindelemente vertikal aus
     justify-content: center; //" horizontal
-    display: flex;
+    margin-top: 50px;
+    margin-bottom: 20px;
     min-height: 400px;
     min-width: 200px;
     background-color: #fff;
   } 
+  .basket-list-entry{
+    display: flex;
+    background-color: whitesmoke;
+    min-width: 20px;
+    min-height: 20px;
+    align-items: center; //richtet kindelemente vertikal aus
+    margin-top: 10px;
+    .col-md-4{
+      min-width: 100px;
+      .fa-plus{
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+      .fa-minus{
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    }
+  }
+
 
   .profile-button{
     position: absolute;

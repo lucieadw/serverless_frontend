@@ -35,8 +35,13 @@ export interface Product {
 }
 
 export interface BasketProduct {
-  category: string
+  category: Category
   productId: string
+  name: string
+  description: string
+  price: number
+  stock: number
+  picture: string
   amount: number
 }
 
@@ -50,6 +55,10 @@ export default {
     const user: CognitoUser = await Auth.signIn(username, password)
     jwtToken.value = user.getSignInUserSession()?.getAccessToken().getJwtToken() ?? ''
   },
+  async signOut (): Promise<void> {
+    await Auth.signOut()
+    jwtToken.value = ''
+  },
   async getCategory (c: Category): Promise<Product[]> {
     const reponse = await fetch(baseUrl + '/products/' + c)
     return reponse.json()
@@ -59,6 +68,21 @@ export default {
       headers: { Authorization: jwtToken.value }
     })
     return response.json()
+  },
+  async updateBasket (category: Category, productId: string, amount: number): Promise<Basket> {
+    const response = await fetch(baseUrl + '/basket/update', {
+      method: 'put',
+      headers: { Authorization: jwtToken.value },
+      body: JSON.stringify({ category, productId, amount })
+    })
+    return response.json()
+  },
+  async increaseProductAmount (category: Category, productId: string): Promise<void> {
+    await fetch(baseUrl + '/basket/add', {
+      method: 'put',
+      headers: { Authorization: jwtToken.value },
+      body: JSON.stringify({ category, productId })
+    })
   },
   jwtToken
 }

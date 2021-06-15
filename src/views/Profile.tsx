@@ -5,6 +5,7 @@ export default defineComponent({
   setup () {
     return () => <>
       <div class="profile"><h3>Deine Daten</h3></div>
+      <button onClick={api.signOut}>Ausloggen</button>
     </>
   }
 })
