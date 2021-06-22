@@ -1,43 +1,41 @@
 import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import SignIn from '@/components/SignIn'
 import api from './api'
 
 export default defineComponent({
   setup () {
-    const signInVisible = ref(false)
-
-    function onAction (target: string) {
-      if (!api.jwtToken.value) {
-        signInVisible.value = true
-      } else {
-        router.push(target)
-      }
-    }
-
-    const router = useRouter()
     return () => <>
-      <nav id="nav">
-        <router-link to="/">Home</router-link>
-        <router-link to="/shop">Shop</router-link>
-        <router-link to="/about">Geschichte</router-link>
-        <button onClick={() => onAction('/basket')} class="basket"><i class="fa fa-shopping-cart"><p class="basket-text">Warenkorb</p></i></button>
-        {signInVisible.value && <div class='popup'>
-          <div class='popup-signin'>
-            <SignIn onClose={() => (signInVisible.value = false)}>
-            </SignIn>
-            <button onClick={() => (signInVisible.value = false)} class="btn btn-link btn-close">
-              <i class="fa fa-times"></i>
-            </button>
+      <nav class="navbar navbar-expand-sm navbar-light bg-light p-3">
+        <div class="container-fluid">
+          <router-link class="navbar-brand d-flex align-items-center" to="/">
+            <img src="/logo.png" height="36" class="me-2" />
+            RoyalPlants
+          </router-link>
+          <div class="navbar-collapse" >
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item"><router-link class="nav-link" to="/shop/plant">Shop</router-link></li>
+              <li class="nav-item"><router-link class="nav-link" to="/about">Geschichte &amp; FAQ</router-link></li>
+            </ul>
+            {api.isSignedIn.value && <>
+              <router-link to="/profile" class="btn btn-dark me-3"><i class="fa fa-user"></i></router-link>
+              <router-link to="/basket" class="btn btn-dark"><i class="fa fa-shopping-cart"></i></router-link>
+            </>}
+            {!api.isSignedIn.value &&
+              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa fa-sign-in"></i> Einloggen</button>}
+            <SignIn/>
           </div>
-        </div>}
-        <button onClick={() => onAction('/profile')} class="profile-button"><i class="fa fa-user"></i></button>
+        </div>
       </nav>
-      <router-view class="content" />
-      <div class="footer-container">
-        <footer>Hier sollten ein paar Icon-Links sein z.B. zu GitHub oder Vue</footer>
-        <p class="copyright">Contact: lucie.ausderwieschen@haw-hamburg.de</p>
-        <p class="copyright">Pretty Plants © 2021</p>
+      <router-view class="app__content" />
+      <div class="container-fluid mt-5 bg-light text-center">
+        <div class="row">
+          <div class="col p-4">
+            <i class="fa fa-2x fa-github me-2"></i>
+            Hier sollten ein paar Icon-Links sein<br/>
+            Contact: lucie.ausderwieschen@haw-hamburg.de<br/>
+            RoyalPlants © 2021<br/>
+          </div>
+        </div>
       </div>
     </>
   }

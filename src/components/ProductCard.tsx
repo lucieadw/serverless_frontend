@@ -1,5 +1,5 @@
-import api, { Category, Product } from '@/api'
-import { defineComponent, computed, PropType } from 'vue'
+import api, { Product } from '@/api'
+import { defineComponent, computed, PropType, ref } from 'vue'
 
 export default defineComponent({
   emits: ['click'], // sorgt dafür dass der Shop an dem ProductCard tag ein onClick hat und man dann dort eine Fuktion aufrufen kann
@@ -8,27 +8,26 @@ export default defineComponent({
     product: { type: Object as PropType<Product>, required: true }
   },
   setup (props, { emit }) {
-    function increaseAmount () {
+    const addedItem = ref(false)
+    function onIncreaseAmount () {
       api.increaseProductAmount(props.product.category, props.product.productId)
+      addedItem.value = true
     }
     const image = computed(() => '/img/' + (props.product.picture || 'monstera.jpeg'))
-    return () => <div class="col-md-4">
-      <section class="panel">
-        <div class="pro-img-box">
-          <img src={image.value} alt="Kein Bild" />
-          <button onClick={increaseAmount} class="btn adtocart">
-            <i class="fa fa-shopping-cart"></i>
+    return () => <div class="col-4">
+      <div class="card shop__product">
+        <img src={image.value} class="card-img-top"/>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{props.product.name}</h5>
+          <p class="card-text mb-auto">{props.product.price}€</p>
+          {api.isSignedIn.value && !addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1"><i class="fa fa-shopping-cart"></i></button>}
+          {api.isSignedIn.value && addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1" disabled={true}><i class="fa fa-check"></i> Hinzugefügt</button>}
+          {!api.isSignedIn.value && <button class="btn btn-dark mb-1" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa fa-shopping-cart"></i></button>}
+          <button onClick={() => emit('click', props.product)} class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
+            Details
           </button>
         </div>
-        <div class="panel-body text-center">
-          <h4>
-            <button onClick={() => emit('click', props.product)} class="btn btn-link pro-title">
-              {props.product.name}
-            </button>
-          </h4>
-          <p class="price">{props.product.price}€</p>
-        </div>
-      </section>
+      </div>
     </div>
   }
 })

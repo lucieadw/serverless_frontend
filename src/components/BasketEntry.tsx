@@ -17,21 +17,24 @@ export default defineComponent({
     function deleteEntry () {
       emit('change', { category: props.basketProduct.category, productId: props.basketProduct.productId, amount: 0 })
     }
-    return () => <div class="basket-list-entry row">
-      <div class="col-md-3">
+    return () => <tr>
+      <td>
         {props.basketProduct.name}
-      </div>
-      <div class="col-md-3">
-        {Math.round(((props.basketProduct.price * props.basketProduct.amount) + Number.EPSILON) * 100) / 100}€
-      </div>
-      <div class="col-md-3">
-        <button onClick={decreaseAmount} class="fa fa-minus"></button>
-        {props.basketProduct.amount}
-        <button onClick={increaseAmount} class="fa fa-plus"></button>
-      </div>
-      <div class="col-md-3">
-        <button onClick={deleteEntry} class="fa fa-trash"></button>
-      </div>
-    </div>
+      </td>
+      <td>
+        <div class="btn-group me-2">
+          <button onClick={decreaseAmount} class="btn btn-outline-dark" disabled={props.basketProduct.amount === 1}><i class="fa fa-minus"></i></button>
+          <div class="btn btn-outline-dark">{props.basketProduct.amount}</div>
+          <button onClick={increaseAmount} class="btn btn-outline-dark"><i class="fa fa-plus"></i></button>
+        </div>
+        <button onClick={deleteEntry} class="btn btn-outline-dark"><i class="fa fa-trash"></i></button>
+      </td>
+      <td class="text-end">
+        {props.basketProduct.price.toFixed(2)} €
+      </td>
+      <td class="text-end">
+        {(props.basketProduct.price * props.basketProduct.amount).toFixed(2)} €
+      </td>
+    </tr>
   }
 })

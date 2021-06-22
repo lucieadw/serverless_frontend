@@ -15,9 +15,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About')
   },
   {
-    path: '/shop',
+    path: '/shop/:category',
     name: 'Shop',
-    component: () => import(/* webpackChunkName: "shop" */ '../views/Shop')
+    component: () => import(/* webpackChunkName: "shop" */ '../views/Shop'),
+    props: route => ({ category: route.params.category })
   },
   {
     path: '/basket',
@@ -33,6 +34,8 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHashHistory(),
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'active',
   routes
 })
 
