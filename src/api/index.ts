@@ -57,15 +57,15 @@ export interface OrderBody {
   products: BasketProduct[]
 }
 
-const baseUrl = 'https://89ji866ymg.execute-api.eu-central-1.amazonaws.com/dev'
+const baseUrl = 'https://112q6cfx42.execute-api.eu-central-1.amazonaws.com/prod'
 
 Auth.configure({
   // REQUIRED - Amazon Cognito Region
   region: 'eu-central-1',
   // OPTIONAL - Amazon Cognito User Pool ID
-  userPoolId: 'eu-central-1_vyUSmnSNn',
+  userPoolId: 'eu-central-1_0Dju4JJZe',
   // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-  userPoolWebClientId: '1b428hghvf9o93goev3pqj132a'
+  userPoolWebClientId: '67s8pg2kkbbhhcrdl2nb0dm46i'
 })
 
 const userInfo = ref<UserInfo>()
@@ -76,7 +76,10 @@ Auth.currentSession().then(sess => (userInfo.value = { username: sess.getIdToken
 
 export default {
   async signIn (username: string, password: string): Promise<void> {
-    const user = await Auth.signIn(username, password)
+    let user = await Auth.signIn(username, password)
+    if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+      user = await Auth.completeNewPassword(user, password)
+    }
     userInfo.value = { username: user.attributes.email }
   },
   async signOut (): Promise<void> {
