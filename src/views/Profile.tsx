@@ -14,8 +14,8 @@ export default defineComponent({
           <div class="card">
             <div class="card-header">Deine Daten</div>
             <div class="card-body">
-              <p>Email: {api.userInfo.value?.username}</p>
-              <button onClick={api.signOut} class="btn btn-danger"><i class="fa fa-sign-out"></i> Ausloggen</button>
+              <p>Email: test@test.de</p>
+              <button class="btn btn-danger" disabled><i class="fa fa-sign-out"></i> Ausloggen</button>
             </div>
           </div>
         </div>

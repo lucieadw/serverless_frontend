@@ -1,6 +1,4 @@
-import { defineComponent, ref } from 'vue'
-import SignIn from '@/components/SignIn'
-import api from './api'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   setup () {
@@ -16,13 +14,8 @@ export default defineComponent({
               <li class="nav-item"><router-link class="nav-link" to="/shop/plant">Shop</router-link></li>
               <li class="nav-item"><router-link class="nav-link" to="/about">Geschichte &amp; FAQ</router-link></li>
             </ul>
-            {api.isSignedIn.value && <>
-              <router-link to="/profile" class="btn btn-dark me-3"><i class="fa fa-user"></i></router-link>
-              <router-link to="/basket" class="btn btn-dark"><i class="fa fa-shopping-cart"></i></router-link>
-            </>}
-            {!api.isSignedIn.value &&
-              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa fa-sign-in"></i> Einloggen</button>}
-            <SignIn/>
+            <router-link to="/profile" class="btn btn-dark me-3"><i class="fa fa-user"></i></router-link>
+            <router-link to="/basket" class="btn btn-dark"><i class="fa fa-shopping-cart"></i></router-link>
           </div>
         </div>
       </nav>

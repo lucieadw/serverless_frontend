@@ -1,6 +1,6 @@
 import api, { BasketProduct } from '@/api'
 import BasketEntry from '@/components/BasketEntry'
-import { computed, defineComponent, ref, watchEffect, withModifiers } from 'vue'
+import { computed, defineComponent, onBeforeMount, ref, withModifiers } from 'vue'
 
 export default defineComponent({
   setup () {
@@ -20,12 +20,8 @@ export default defineComponent({
     const checkoutVisible = ref(false)
     const error = ref('')
 
-    watchEffect(async () => {
-      if (api.isSignedIn.value) {
-        basketProducts.value = (await api.getBasket()).products
-      } else {
-        basketProducts.value = []
-      }
+    onBeforeMount(async () => {
+      basketProducts.value = (await api.getBasket()).products
     })
 
     async function onChange (product: BasketProduct) {

@@ -1,6 +1,3 @@
-import { Auth } from 'aws-amplify'
-import { computed, ref } from 'vue'
-
 export enum Category {
   Plants = 'plant',
   Flowers = 'flower',
@@ -57,80 +54,45 @@ export interface OrderBody {
   products: BasketProduct[]
 }
 
-const baseUrl = 'https://112q6cfx42.execute-api.eu-central-1.amazonaws.com/prod'
-
-Auth.configure({
-  // REQUIRED - Amazon Cognito Region
-  region: 'eu-central-1',
-  // OPTIONAL - Amazon Cognito User Pool ID
-  userPoolId: 'eu-central-1_0Dju4JJZe',
-  // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-  userPoolWebClientId: '67s8pg2kkbbhhcrdl2nb0dm46i'
-})
-
-const userInfo = ref<UserInfo>()
-const isSignedIn = computed(() => userInfo.value !== undefined)
-
-// wenn keine session da (also nicht eingeloggt dann wird das promise nie aufgeöst (.then))
-Auth.currentSession().then(sess => (userInfo.value = { username: sess.getIdToken().payload.email }))
+const baseUrl = 'https://k577d65461.execute-api.eu-central-1.amazonaws.com/prod'
+const testId = 'fe-test'
 
 export default {
-  async signIn (username: string, password: string): Promise<void> {
-    let user = await Auth.signIn(username, password)
-    if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-      user = await Auth.completeNewPassword(user, password)
-    }
-    userInfo.value = { username: user.attributes.email }
-  },
-  async signOut (): Promise<void> {
-    await Auth.signOut()
-    userInfo.value = undefined
-  },
   async getCategory (c: Category): Promise<Product[]> {
     const reponse = await fetch(`${baseUrl}/products/${c}`)
     return reponse.json()
   },
   async getBasket (): Promise<Basket> {
-    const response = await fetch(`${baseUrl}/basket`, {
-      headers: { Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken() }
-    })
+    const response = await fetch(`${baseUrl}/baskets/${testId}`)
     return response.json()
   },
   async updateBasket (category: Category, productId: string, amount: number): Promise<Basket> {
-    const response = await fetch(`${baseUrl}/basket/update`, {
+    const response = await fetch(`${baseUrl}/baskets/${testId}/update`, {
       method: 'put',
-      headers: { Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken() },
       body: JSON.stringify({ category, productId, amount })
     })
     return response.json()
   },
   async increaseProductAmount (category: Category, productId: string): Promise<void> {
-    await fetch(`${baseUrl}/basket/add`, {
+    await fetch(`${baseUrl}/baskets/${testId}/add`, {
       method: 'put',
-      headers: { Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken() },
       body: JSON.stringify({ category, productId })
     })
   },
   async getOrders (): Promise<Order[]> {
-    const response = await fetch(`${baseUrl}/orders`, {
-      headers: { Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken() }
-    })
+    const response = await fetch(`${baseUrl}/orders/${testId}`)
     return response.json()
   },
   async cancelOrder (order: Order): Promise<void> {
-    const response = await fetch(`${baseUrl}/orders/${order.orderNo}`, {
-      method: 'delete',
-      headers: { Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken() }
-    })
+    const response = await fetch(`${baseUrl}/orders/${testId}/${order.orderNo}`, { method: 'delete' })
     return response.json()
   },
   async createOrderRequest (orderBody: OrderBody): Promise<void> {
-    await fetch(`${baseUrl}/orders`, {
+    await fetch(`${baseUrl}/orders/${testId}`, {
       method: 'post',
-      headers: { Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken() },
       body: JSON.stringify({
         name: orderBody.name,
-        email: userInfo.value?.username,
+        email: 'test@test.de',
         street: orderBody.street,
         housenr: orderBody.housenr,
         postcode: orderBody.postcode,
@@ -138,7 +100,5 @@ export default {
         products: orderBody.products
       })
     })
-  },
-  userInfo,
-  isSignedIn
+  }
 }

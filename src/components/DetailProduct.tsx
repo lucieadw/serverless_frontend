@@ -32,8 +32,7 @@ export default defineComponent({
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-            {api.isSignedIn.value &&
-            <button onClick={increaseAmount} type="button" class="btn btn-dark"><i class="fa fa-shopping-cart"></i> Hinzufügen</button>}
+            <button onClick={increaseAmount} type="button" class="btn btn-dark"><i class="fa fa-shopping-cart"></i> Hinzufügen</button>
           </div>
         </div>
       </div>

@@ -20,9 +20,8 @@ export default defineComponent({
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{props.product.name}</h5>
           <p class="card-text mb-auto">{props.product.price}€</p>
-          {api.isSignedIn.value && !addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1"><i class="fa fa-shopping-cart"></i></button>}
-          {api.isSignedIn.value && addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1" disabled={true}><i class="fa fa-check"></i> Hinzugefügt</button>}
-          {!api.isSignedIn.value && <button class="btn btn-dark mb-1" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa fa-shopping-cart"></i></button>}
+          {!addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1"><i class="fa fa-shopping-cart"></i></button>}
+          {addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1" disabled={true}><i class="fa fa-check"></i> Hinzugefügt</button>}
           <button onClick={() => emit('click', props.product)} class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
             Details
           </button>
