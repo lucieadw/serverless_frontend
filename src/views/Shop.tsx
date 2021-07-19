@@ -50,7 +50,7 @@ export default defineComponent({
           </div>
           <div class="row g-3">
             <DetailProduct product={activeProduct.value}></DetailProduct>
-            {products.value.map(p => <ProductCard onClick={() => (activeProduct.value = p)} product={p} />)}
+            {products.value.map(p => <ProductCard key={p.productId} onClick={() => (activeProduct.value = p)} product={p} />)}
           </div>
         </div>
       </div>

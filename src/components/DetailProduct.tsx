@@ -1,13 +1,18 @@
 import api, { Product } from '@/api'
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed, PropType, ref } from 'vue'
 
 export default defineComponent({
   props: {
     product: { type: Object as PropType<Product | undefined>, required: true }
   },
   setup (props) {
-    function increaseAmount () {
+    const addedItem = ref(false)
+    function onIncreaseAmount () {
       api.increaseProductAmount(props.product!.category, props.product!.productId)
+      addedItem.value = true
+    }
+    function onClose () {
+      addedItem.value = false
     }
     const image = computed(() => '/img/' + (props.product!.picture || 'monstera.jpeg'))
     return () => <div class="modal fade" id="detailModal" tabindex="-1">
@@ -15,7 +20,7 @@ export default defineComponent({
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{props.product!.name}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <button onClick={onClose} type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
             <div class="container-fluid">
@@ -31,8 +36,9 @@ export default defineComponent({
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-            <button onClick={increaseAmount} type="button" class="btn btn-dark"><i class="fa fa-shopping-cart"></i> Hinzufügen</button>
+            <button onClick={onClose} type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+            {!addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1"><i class="fa fa-shopping-cart"></i>  Hinzufügen</button>}
+            {addedItem.value && <button onClick={onIncreaseAmount} class="btn btn-dark mb-1" disabled={true}><i class="fa fa-check"></i> Hinzugefügt</button>}
           </div>
         </div>
       </div>
